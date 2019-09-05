@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const usersSchema = new Schema({
@@ -12,7 +12,7 @@ const usersSchema = new Schema({
     type: String,
     unique: false,
     validate: {
-      validator: function (v) {
+      validator: function(v) {
         return /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v);
       },
       message: props => `${props.value} is not a valid password`
@@ -28,24 +28,16 @@ const usersSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now()
-  },
-  todos: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Todo'
-  }],
-  tvlist: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Tvlist'
-  }]
+  }
 });
 
-usersSchema.methods.generateHash = function (password) {
+usersSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-}
+};
 
-usersSchema.methods.validPassword = function (password, encrypted) {
+usersSchema.methods.validPassword = function(password, encrypted) {
   return bcrypt.compareSync(password, encrypted);
-}
+};
 
 const User = mongoose.model("User", usersSchema);
 
