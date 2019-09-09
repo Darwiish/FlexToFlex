@@ -108,17 +108,6 @@ class AccountModal extends Component {
                     <DropdownItem onClick={this.select}>395</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
-
-                {/* <InputGroup style={{ marginBottom: '1rem' }} >
-									<Input 
-										type="text"
-										name="name"
-										id="accountName"
-										placeholder="Account Name"
-										onChange={this.onChange}
-									/>
-								</InputGroup> */}
-
                 <InputGroup style={{ marginBottom: "1rem" }}>
                   <Input
                     type="text"
@@ -128,16 +117,6 @@ class AccountModal extends Component {
                     onChange={this.onChange}
                   />
                 </InputGroup>
-                {/* <InputGroup>
-									<Input 
-										type="number"
-										name="accountNumber"
-										id="accountNumber"
-										placeholder="Vogn number"
-										onChange={this.onChange}
-									/>
-								</InputGroup>
-							         */}
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
                   Add Account
                 </Button>
