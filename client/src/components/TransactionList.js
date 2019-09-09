@@ -1,84 +1,101 @@
-import React, {Component} from 'react';
-import { Container, ListGroup, ListGroupItem, Button, Table, Input, FormGroup, Label, InputGroup, InputGroupAddon } from 'reactstrap';
-import { CSSTransition, TransitionGroup, Transition } from 'react-transition-group';
-import { connect } from 'react-redux';
-import { getItems, deleteItem } from '../actions/itemActions';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import {
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Table,
+  Input,
+  FormGroup,
+  Label,
+  InputGroup,
+  InputGroupAddon
+} from "reactstrap";
+import {
+  CSSTransition,
+  TransitionGroup,
+  Transition
+} from "react-transition-group";
+import { connect } from "react-redux";
+import { getItems, deleteItem } from "../actions/itemActions";
+import PropTypes from "prop-types";
+import Calculations from "../components/Calculations";
 
+class TransactionList extends Component {
+  //life cycle method
+  state = {
+    records: 5,
+    items: getItems,
+    income: 0,
+    expense: 0
+  };
+  componentDidMount() {
+    this.props.getItems();
+  }
 
-class TransactionList extends Component{
-	//life cycle method
-	state={
-		records: 5
+  onDeleteClick = id => {
+    this.props.deleteItem(id);
+  };
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
 
-	}
-	componentDidMount(){
-		this.props.getItems();
+  render() {
+    const { items } = this.props.item;
+    var options = { year: "numeric", month: "long", day: "numeric" };
+    return (
+      <Container>
+        <div
+          id="filterOnType"
+          style={{ display: "inline-block", margin: "1rem" }}
+        >
+          <FormGroup tag="fieldset">
+            <legend>Search</legend>
+            <FormGroup check>
+              <Label check>
+                <Input type="radio" name="radio1" />
+                All
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input type="radio" name="radio1" />
+                Kredit
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input type="radio" name="radio1" />
+                Kontant
+              </Label>
+            </FormGroup>
+          </FormGroup>
+        </div>
 
-	}
+        <div
+          id="filterOnQuantity"
+          style={{ display: "inline-block", clear: "none", margin: "1rem" }}
+        >
+          <FormGroup tag="fieldset">
+            <InputGroup>
+              <Input
+                style={{ width: "100px" }}
+                type="Number"
+                name="records"
+                id="records"
+                placeholder={this.state.records}
+                onChange={this.onChange}
+              />
+              <InputGroupAddon addonType="append">
+                Most Recent Transactions
+              </InputGroupAddon>
+            </InputGroup>
+          </FormGroup>
+        </div>
 
-	onDeleteClick = (id) => {
-		this.props.deleteItem(id);
-	}
-	onChange =(e)=>{
-		this.setState({
-			[e.target.name]: e.target.value
-
-		});
-	}
-	
-
-	render (){
-		const { items }=this.props.item;
-		var options = { year: 'numeric', month: 'long', day: 'numeric' };
-		return(
-			<Container>
-
-				<div id="filterOnType" style={{ display: 'inline-block', margin: '1rem'}}>
-
-					<FormGroup tag="fieldset">
-			          <legend>Search</legend>
-			          <FormGroup check>
-			          	<Label check>
-			             	<Input type="radio" name="radio1" />
-			             	All
-			           	</Label>
-			          </FormGroup>
-			          <FormGroup check>
-			            <Label check>
-			              <Input type="radio" name="radio1" />
-			              Income
-			            </Label>
-			          </FormGroup>
-			          <FormGroup check>
-			            <Label check>
-			              <Input type="radio" name="radio1"  />
-			              Others
-			            </Label>
-			          </FormGroup>
-			        </FormGroup>
-		        </div>
-
-		        <div id="filterOnQuantity" style={{ display: 'inline-block', clear: 'none', margin: '1rem'}}>
-
-					<FormGroup tag="fieldset">
-			          	<InputGroup>
-							<Input 
-								style={{ width: '100px'}}
-								type="Number"
-								name="records"
-								id="records"
-
-								placeholder={this.state.records}
-								onChange={this.onChange}
-							/>
-							<InputGroupAddon addonType="append">Most Recent Transactions</InputGroupAddon>
-						</InputGroup>
-			        </FormGroup>
-		        </div>
-	      
- {
- 	/*
+        {/*
 				<ListGroup>
 					<TransitionGroup >
 						{items.map(({_id, name,transactionType, amount, accountNumber, date}) => (
@@ -94,77 +111,81 @@ class TransactionList extends Component{
 						))}
 					</TransitionGroup>
 				</ListGroup>
-	*/
+	*/}
+
+        {
+          //Dynamically populate table with DataSet
+        }
+
+        <Table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Chatffør</th>
+              <th>Vogn </th>
+              <th>Kredit</th>
+              <th>Kontant </th>
+              <th>Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {
+              //			        	<TransitionGroup >
+            }
+            {items
+              .slice(0, this.state.records)
+              .map(
+                ({
+                  _id,
+                  name,
+                  transactionType,
+                  amount,
+                  accountNumber,
+                  date
+                }) => (
+                  <CSSTransition key={_id} timeout={10000} classNames="fade">
+                    <tr>
+                      <th scope="row">
+                        <Button
+                          style={{ marginRight: "1rem" }}
+                          className="remove-btn"
+                          color="danger"
+                          size="sm"
+                          onClick={this.onDeleteClick.bind(this, _id)}
+                        >
+                          &times;
+                        </Button>
+                        {date.substring(0, date.indexOf("T"))}
+                      </th>
+                      <td>{transactionType}</td>
+                      <td>{name}</td>
+                      <td>{amount}</td>
+                      <td>{accountNumber}</td>
+                      <td>{"Dk " + this.state.income}</td>
+                    </tr>
+                  </CSSTransition>
+                )
+              )}
+            {
+              //			       	</TransitionGroup >
+            }
+          </tbody>
+        </Table>
+      </Container>
+    );
+  }
 }
 
-
-{//Dynamically populate table with DataSet
-}
-				
-				<Table>
-				
-			        <thead>
-			          <tr>
-			            <th>Date</th>
-			            <th>CHAUFFØR</th>
-						<th>VOGN </th>
-			            <th>BELØB</th>
-			            <th>KONTANT </th>
-			            <th>TOTAL</th>
-			          </tr>
-			        </thead>
-			        
-			        <tbody>
-{
-//			        	<TransitionGroup >
-}			        	
-			        	{items.slice(0,this.state.records).map(({_id, name, transactionType, amount, accountNumber, date}) => (
-			        		
-			        		<CSSTransition key={_id} timeout={10000} classNames="fade">	
-			        		
-			          		<tr>
-			          		
-					            <th scope="row">
-					            	<Button style={{marginRight: '1rem'}} className="remove-btn" color="danger" size="sm"
-									onClick={this.onDeleteClick.bind(this,_id)}
-									>&times;
-									</Button>
-									{date.substring(0, date.indexOf("T"))}
-								</th>
-					            <td>{transactionType}</td>
-					            <td>{name}</td>
-					            <td>{amount}</td>
-					            <td>{accountNumber}</td>
-				          		
-				          	</tr>
-				          	
-				          	</CSSTransition>
-			          		
-
-			          	))}
-{			          	
-//			       	</TransitionGroup >
-}
-			        </tbody>
-			        
-			      </Table>
-
-
-			</Container>
-		);
-	}
-
-
-}
-
-TransactionList.propTypes={
-	getItems: PropTypes.func.isRequired,
-	item: PropTypes.object.isRequired
-
-}
-const mapStateToProps =(state)=> ({
-	item: state.item
-
+TransactionList.propTypes = {
+  getItems: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  item: state.item
 });
 
-export default connect(mapStateToProps,{getItems, deleteItem}) (TransactionList);
+export default connect(
+  mapStateToProps,
+  { getItems, deleteItem }
+)(TransactionList);

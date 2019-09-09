@@ -55,8 +55,6 @@ class Calculations extends Component{
 				<h2>Income</h2>
 	            {"Dk "+this.state.income}
 	            
-	            {/* <h2>Expense</h2>
-	            {"Dk "+this.state.expense} */}
             </div>
             
 		);
