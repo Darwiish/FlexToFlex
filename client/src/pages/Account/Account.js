@@ -24,7 +24,7 @@ class Account  extends Component {
         <div className="App">
             
             <Container>
-              <h1>Financial Budgeting</h1>
+              <h1>Lønafregning</h1>
               <Calculations />
               <div className="addAccount">
                 <AccountModal/>

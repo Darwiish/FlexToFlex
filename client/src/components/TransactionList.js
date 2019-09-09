@@ -37,7 +37,7 @@ class TransactionList extends Component{
 				<div id="filterOnType" style={{ display: 'inline-block', margin: '1rem'}}>
 
 					<FormGroup tag="fieldset">
-			          <legend>Search Transaction</legend>
+			          <legend>Search</legend>
 			          <FormGroup check>
 			          	<Label check>
 			             	<Input type="radio" name="radio1" />
@@ -106,10 +106,11 @@ class TransactionList extends Component{
 			        <thead>
 			          <tr>
 			            <th>Date</th>
-			            <th>Type</th>
-			            <th>Transaction</th>
-			            <th>Amount (Dk)</th>
-			            <th>Account #</th>
+			            <th>CHAUFFØR</th>
+						<th>VOGN </th>
+			            <th>BELØB</th>
+			            <th>KONTANT </th>
+			            <th>TOTAL</th>
 			          </tr>
 			        </thead>
 			        
