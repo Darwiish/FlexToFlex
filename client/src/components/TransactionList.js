@@ -120,9 +120,7 @@ class TransactionList extends Component {
         <Table>
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Chatffør</th>
-              <th>Vogn </th>
+              <th>Date</th>              
               <th>Kredit</th>
               <th>Kontant </th>
               <th>Total</th>
@@ -158,7 +156,6 @@ class TransactionList extends Component {
                         </Button>
                         {date.substring(0, date.indexOf("T"))}
                       </th>
-                      <td>{transactionType}</td>
                       <td>{name}</td>
                       <td>{amount}</td>
                       <td>{accountNumber}</td>

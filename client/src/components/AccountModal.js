@@ -22,10 +22,10 @@ class AccountModal extends Component {
   state = {
     modal: false,
     dropdownOpen: false,
-    name: "",
+   // name: "",
     accountHolder: "",
-    accountType: "Vælge Vogn",
-    accountNumber: 123
+    accountType: "Vælge Vogn"
+    //accountNumber:""
   };
 
   toggle = () => {
@@ -56,10 +56,10 @@ class AccountModal extends Component {
     //prevent default submission
     e.preventDefault();
     const newAccount = {
-      name: this.state.name,
+     // name: this.state.name,
       accountHolder: this.state.accountHolder,
       accountType: this.state.accountType,
-      accountNumber: this.state.accountNumber
+      //accountNumber: this.state.accountNumber
     };
 
     //add item via addItem action
@@ -105,7 +105,7 @@ class AccountModal extends Component {
                     <DropdownItem onClick={this.select}>3943</DropdownItem>
                     <DropdownItem onClick={this.select}>3947</DropdownItem>
                     <DropdownItem onClick={this.select}>3957</DropdownItem>
-                    <DropdownItem onClick={this.select}>395</DropdownItem>
+                    <DropdownItem onClick={this.select}>3969</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
                 <InputGroup style={{ marginBottom: "1rem" }}>

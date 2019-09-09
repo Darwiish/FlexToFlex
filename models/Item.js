@@ -5,19 +5,19 @@ const Schema = mongoose.Schema;
 const ItemSchema=new Schema({
 	name: {
 		type: String,
-		required: true
+		required: false
 	},
 	transactionType: {
 		type: String,
-		required: true
+		required: false
 	},
 	amount: {
 		type: Number,
-		required: true
+		required: false
 	},
 	accountNumber: {
 		type: Number,
-		required: true
+		required: false
 	},
 	date: {
 		type: Date,
